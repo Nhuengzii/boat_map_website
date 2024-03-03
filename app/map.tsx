@@ -58,44 +58,66 @@ function BoatTrackingMap() {
         setMap(null)
     }, [])
 
+
+    const boxShow = () => {
+        return
+    }
+
+    const showBoatPosition = () => {
+        return (
+            <>
+                <div className='flex'>I
+                    <h1>ลองติจูด</h1>
+                    <h1>{selectedBoat?.location.longitude}</h1>
+                </div>
+                <div className='flex'>
+                    <h1>ละติจูด</h1>
+                    <h1>{selectedBoat?.location.latitude}</h1>
+                </div>
+            </>
+        )
+    }
+
     return isLoaded ? (
         <div>
-            <dialog id="my_modal_3" className="modal">
-                <div className="modal-box">
+            <dialog id="my_modal_3" className="modal flex">
+                <div className="modal-box p-0 h-screen">
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <div>
-                        <button className='btn bg-green-200 outline-2'>
+                    <div className='flex flex-col py-2'>
+                        <div className='my-4 h-14 flex items-center justify-between'>
+                        <button className='btn bg-[#B0EACD] border border-[#202020] w-3/5 flex h-full items-center self-center ml-8'>
                             <h1> สถานะเรือ</h1>
-                            <h1 className='bg-green-400'> {selectedBoat?.status}</h1>
+                            <h1 className='bg-[#A2FF86] rounded-full px-4 py-2'> {selectedBoat?.status}</h1>
                         </button>
-                        <div className='flex flex-row'>
-                            <h1 className='text-green-500'>ข้อมูลตัวเรือ</h1>
+                        <button className="btn btn-sm btn-circle mr-4">✕</button>
+                        </div>
+                        <div className='flex flex-row items-center py-2 pt-8'>
+                            <h1 className='text-green-500 mx-4'>ข้อมูลตัวเรือ</h1>
                             <FontAwesomeIcon icon={faIdBadge} size="2x" />
                         </div>
-                        <div>
-                            <div>
-                                <h1>ชื่อเรือ</h1>
-                                <h1>{selectedBoat?.boatName}</h1>
+                        <div className='border-2 border-[#E0E0E0] px-6 py-4 '>
+                            <div className=''>
+                                <h1 className='py-0.5'>ชื่อเรือ</h1>
+                                <h1 className='py-0.5'>{selectedBoat?.boatName}</h1>
                             </div>
-                            <div>
-                                <h1>ประเภทของเรือ</h1>
-                                <h1>{selectedBoat?.boatType}</h1>
+                            <div className=''>
+                                <h1 className='py-0.5'>ประเภทของเรือ</h1>
+                                <h1 className='py-0.5'>{selectedBoat?.boatType}</h1>
                             </div>
                         </div>
-                        <div className='flex flex-row'>
-                            <h1 className='text-green-500'>ตำแหน่งเรือ</h1>
+                        <div className='flex flex-row items-center py-2 pt-8'>
+                            <h1 className='text-green-500 mx-4'>ตำแหน่งเรือ</h1>
                             <FontAwesomeIcon icon={faLocation} size="2x" />
                         </div>
-                        <div className='border-black border-[2]'>
-                            <div className='flex'>
-                                <h1>ลองติจูด</h1>
+                        <div className='border-[#E0E0E0] border-2 px-6 py-4'>
+                            <div className='flex py-0.5'>
+                                <h1 className='pr-16'>ลองติจูด</h1>
                                 <h1>{selectedBoat?.location.longitude}</h1>
                             </div>
-                            <div className='flex'>
-                                <h1>ละติจูด</h1>
+                            <div className='flex py-0.5'>
+                                <h1 className='pr-16'>ละติจูด</h1>
                                 <h1>{selectedBoat?.location.latitude}</h1>
                             </div>
                         </div>
