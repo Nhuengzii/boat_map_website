@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import SosPage from './Sos';
 
 
 const center = {
@@ -32,6 +33,7 @@ function BoatTrackingMap() {
     const [selectedBoat, setSelectedBoat] = useState<Boat | null>(null)
     const [loading, setLoading] = useState(true)
     const [isClickStatus, setIsClickStatus] = useState(false)
+    const [isCheckStatus, setIsCheckStatus] = useState(false)
     useEffect(() => {
         async function getBoat() {
             const url = baseURL + "boats"
@@ -50,7 +52,7 @@ function BoatTrackingMap() {
                 boatID: "1",
                 boatName: "Test",
                 boatType: "Test",
-                status: "normal",
+                status: "sos",
                 location: {
                     latitude: 13.851070,
                     longitude: 100.577713
@@ -92,13 +94,7 @@ function BoatTrackingMap() {
         return (
             <>
                 <button onClick={handleClickedStatus} className='btn'>X</button>
-                <div className='flex flex-col items-center justify-center'>
-                    <p>Hello</p>
-                    <p>{selectedBoat?.boatName}</p>
-                    <p></p>
-                    <div className='w-20 h-20 rounded-full'>
-                    </div>
-                </div>
+                <SosPage status={selectedBoat!.status} boatName={selectedBoat!.boatName} boatId={selectedBoat!.boatID} />
             </>
         )
     }
@@ -154,7 +150,10 @@ function BoatTrackingMap() {
     return isLoaded ? (
         <div>
             <dialog id="my_modal_3" className="modal flex">
-                <div className="modal-box p-0 py-4 h-screen">
+                <div className="modal-box p-0 py-4 h-    const renderStatus = () => {
+
+}
+screen">
                     {isClickStatus ? renderShowStatus() : renderInformation()}
                 </div>
             </dialog>
