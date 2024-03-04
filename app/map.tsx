@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import SosPage from './Sos';
 
 
 const center = {
@@ -33,7 +32,6 @@ function BoatTrackingMap() {
     const [selectedBoat, setSelectedBoat] = useState<Boat | null>(null)
     const [loading, setLoading] = useState(true)
     const [isClickStatus, setIsClickStatus] = useState(false)
-    const [isCheckStatus, setIsCheckStatus] = useState(false)
     useEffect(() => {
         async function getBoat() {
             const url = baseURL + "boats"
@@ -90,15 +88,6 @@ function BoatTrackingMap() {
         setIsClickStatus(!isClickStatus)
     }
 
-    const renderShowStatus = () => {
-        return (
-            <>
-                <button onClick={handleClickedStatus} className='btn'>X</button>
-                <SosPage status={selectedBoat!.status} boatName={selectedBoat!.boatName} boatId={selectedBoat!.boatID} />
-            </>
-        )
-    }
-
     const renderInformation = () => {
         return (
             <>
@@ -149,12 +138,9 @@ function BoatTrackingMap() {
 
     return isLoaded ? (
         <div>
-            <dialog id="my_modal_3" className="modal flex">
-                <div className="modal-box p-0 py-4 h-    const renderStatus = () => {
-
-}
-screen">
-                    {isClickStatus ? renderShowStatus() : renderInformation()}
+            <dialog id="my_modal_3" className="modal flex justify-center">
+                <div className="modal-box py-4">
+                    {renderInformation()}
                 </div>
             </dialog>
             <div className='w-full h-full flex items-center justify-center'>

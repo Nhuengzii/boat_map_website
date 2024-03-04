@@ -1,5 +1,6 @@
 'use client'
 
+import { redirect } from "next/navigation"
 import { useState } from "react"
 
 export default function LoginForm() {
@@ -15,12 +16,9 @@ export default function LoginForm() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6">
+                    <div className="space-y-6">
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900" onSubmit={(e) => {
-                                e.preventDefault()
-                                alert(`Username: ${userName}, Password: ${password})`)
-                            }}>
+                            <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900" >
                                 ชื่อผู้ใช้
                             </label>
                             <div className="mt-2">
@@ -62,11 +60,20 @@ export default function LoginForm() {
                             <button
                                 type="submit"
                                 className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                onClick={(e) => {
+                                    // alert(`Username: ${userName}, Password: ${password})`)
+                                    if (userName == "admin" && password == "admin") {
+                                        redirect("/admin")
+                                    }
+                                    else {
+                                        alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")
+                                    }
+                                }}
                             >
                                 เข้าสู่ระบบ
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </>
