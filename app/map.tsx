@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 
 
 const center = {
@@ -13,6 +12,7 @@ const center = {
 };
 
 const apiKey = process.env.MAP_KEY;
+console.log(apiKey)
 const baseURL = "https://boat-protector-backend.onrender.com/";
 
 type Boat = {
@@ -39,7 +39,12 @@ function BoatTrackingMap() {
             // console.log(JSON.stringify(fetchedBoats.data.boats.filter(p => p.location.latitude != null), null, 2))
             setBoats(fetchedBoats.data.boats.filter(p => p.location.latitude != null))
         }
-        getBoat()
+        const intv = setInterval(() => {
+            getBoat()
+        }, 2 * 1000)
+        return () => {
+            clearInterval(intv)
+        }
     }, [])
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
@@ -118,7 +123,7 @@ function BoatTrackingMap() {
                             <h1>{selectedBoat?.location.longitude}</h1>
                         </div>
                         <div className='flex py-0.5'>
-                            <h1 className='pr-16'>ละติจูด</h1>
+                            getBoat()                       <h1 className='pr-16'>ละติจูด</h1>
                             <h1>{selectedBoat?.location.latitude}</h1>
                         </div>
                     </div>
