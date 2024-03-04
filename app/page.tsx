@@ -1,6 +1,5 @@
 "use client"
 import { RedirectType, redirect } from "next/navigation";
-import AdminNav from "./AdminNav";
 import Map from "./map";
 
 export default function Home() {
@@ -13,7 +12,6 @@ export default function Home() {
     return (
 
       <div className="w-full h-full">
-        <AdminNav />
         <Map />
       </div>
     )

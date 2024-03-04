@@ -11,7 +11,7 @@ const center = {
     lng: 100.577713
 };
 
-const apiKey = process.env.MAP_KEY;
+const apiKey = process.env.MAP_KEY as string;
 console.log(apiKey)
 const baseURL = "https://boat-protector-backend.onrender.com/";
 
@@ -37,7 +37,25 @@ function BoatTrackingMap() {
             const url = baseURL + "boats"
             const fetchedBoats = await axios.get<{ boats: Boat[] }>(url)
             // console.log(JSON.stringify(fetchedBoats.data.boats.filter(p => p.location.latitude != null), null, 2))
-            setBoats(fetchedBoats.data.boats.filter(p => p.location.latitude != null))
+            setBoats(fetchedBoats.data.boats.filter(p => {
+                if (p.location.latitude == null || p.location.longitude == null) {
+                    return false
+                }
+                if (p.boatName == null || p.boatType == null) {
+                    return false
+                }
+                return true
+            }))
+            setBoats([...boats, {
+                boatID: "1",
+                boatName: "Test",
+                boatType: "Test",
+                status: "normal",
+                location: {
+                    latitude: 13.851070,
+                    longitude: 100.577713
+                }
+            }])
         }
         const intv = setInterval(() => {
             getBoat()
@@ -54,7 +72,7 @@ function BoatTrackingMap() {
     const [map, setMap] = useState(null)
 
 
-    const onLoad = React.useCallback(function callback(map) {
+    const onLoad = React.useCallback(function callback(map: any) {
         // This is just an example of getting and using the map instance!!! don't just blindly copy!
         const bounds = new window.google.maps.LatLngBounds(center);
         map.fitBounds(bounds);
@@ -62,7 +80,7 @@ function BoatTrackingMap() {
         setMap(map)
     }, [])
 
-    const onUnmount = React.useCallback(function callback(map) {
+    const onUnmount = React.useCallback(function callback(map: any) {
         setMap(null)
     }, [])
 
@@ -104,13 +122,13 @@ function BoatTrackingMap() {
                         <FontAwesomeIcon icon={faIdBadge} size="2x" />
                     </div>
                     <div className='border-2 border-[#E0E0E0] px-6 py-4 '>
-                        <div className=''>
+                        <div className='flex'>
                             <h1 className='py-0.5'>ชื่อเรือ</h1>
-                            <h1 className='py-0.5'>{selectedBoat?.boatName}</h1>
+                            <h1 className='py-0.5 pl-10'>{selectedBoat?.boatName}</h1>
                         </div>
-                        <div className=''>
+                        <div className='flex'>
                             <h1 className='py-0.5'>ประเภทของเรือ</h1>
-                            <h1 className='py-0.5'>{selectedBoat?.boatType}</h1>
+                            <h1 className='py-0.5 pl-10'>{selectedBoat?.boatType}</h1>
                         </div>
                     </div>
                     <div className='flex flex-row items-center py-2 pt-8'>
@@ -123,7 +141,7 @@ function BoatTrackingMap() {
                             <h1>{selectedBoat?.location.longitude}</h1>
                         </div>
                         <div className='flex py-0.5'>
-                            getBoat()                       <h1 className='pr-16'>ละติจูด</h1>
+                            <h1 className='pr-16'>ละติจูด</h1>
                             <h1>{selectedBoat?.location.latitude}</h1>
                         </div>
                     </div>
@@ -143,7 +161,7 @@ function BoatTrackingMap() {
             <div className='w-full h-full flex items-center justify-center'>
                 <GoogleMap
                     mapContainerStyle={{
-                        height: "90vh",
+                        height: "100vh",
                         width: "100vh",
                     }}
                     center={center}
@@ -160,11 +178,11 @@ function BoatTrackingMap() {
                                     lng: b.location.longitude
                                 }}
                                 onClick={() => {
-                                    document.getElementById('my_modal_3').showModal()
+                                    (document.getElementById('my_modal_3') as HTMLDialogElement).showModal()
                                     setSelectedBoat(b)
                                 }}
                                 icon={{
-                                    url: "https://cdn-icons-png.flaticon.com/512/124/124021.png",
+                                    url: "https://w7.pngwing.com/pngs/553/999/png-transparent-boat-desktop-boat-wood-transport-watercraft.png",
                                     scaledSize: new window.google.maps.Size(40, 40)
                                 }}
                             />
