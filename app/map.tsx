@@ -93,7 +93,7 @@ function BoatTrackingMap() {
                 <div className='my-4 h-14 flex items-center justify-between'>
                     <button onClick={handleClickedStatus} className='btn bg-[#B0EACD] border border-[#202020] w-3/5 flex h-full items-center self-center ml-8'>
                         <h1> สถานะเรือ</h1>
-                        <h1 className='bg-[#A2FF86] rounded-full px-4 py-2'> {selectedBoat?.status}</h1>
+                        <h1 className={`${selectedBoat?.status == "normal" ? "bg-[#A2FF86]" : "bg-red-400"} rounded-full px-4 py-2`}> {selectedBoat?.status}</h1>
                     </button>
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
