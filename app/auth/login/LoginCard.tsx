@@ -1,6 +1,5 @@
 'use client'
 
-import { redirect } from "next/navigation"
 import { useState } from "react"
 
 export default function LoginForm() {
@@ -63,7 +62,7 @@ export default function LoginForm() {
                                 onClick={(e) => {
                                     // alert(`Username: ${userName}, Password: ${password})`)
                                     if (userName == "admin" && password == "admin") {
-                                        redirect("/admin")
+                                        window.location.replace("/admin")
                                     }
                                     else {
                                         alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง")

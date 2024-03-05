@@ -1,3 +1,4 @@
+'use client'
 import LoginForm from "./LoginCard"
 
 function LoginPage() {
