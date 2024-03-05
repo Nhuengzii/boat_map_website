@@ -1,10 +1,11 @@
 "use client"
 import { faIdBadge, faLocation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, Marker, OverlayView, useJsApiLoader } from '@react-google-maps/api';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import SosPage from '../Sos';
+import Image from 'next/image'
 
 
 const center = {
@@ -78,12 +79,17 @@ function BoatTrackingMap() {
     const handleClickedStatus = () => {
         setIsClickStatus(!isClickStatus)
     }
+    const renderEmergencyEffect = () => {
+        return (
+            <div className='absolute w-16 h-16 animate-ping bg-red-400 rounded-full'></div>
+        )
+    }
 
     const renderShowStatus = () => {
         return (
             <>
                 <button onClick={handleClickedStatus} className='btn'>X</button>
-                <SosPage status={selectedBoat!.status} boatName={selectedBoat!.boatName} boatId={selectedBoat!.boatID} />
+                <SosPage status={selectedBoat!.status} boatName={selectedBoat!.boatName} boatId={selectedBoat!.boatID} closeSOSPage={handleClickedStatus} />
             </>
         )
     }
@@ -159,21 +165,25 @@ screen">
                 >
                     {boats.map(b => {
                         return (
-                            <Marker
+                            <OverlayView
                                 key={b.boatID}
-                                position={{
-                                    lat: b.location.latitude,
-                                    lng: b.location.longitude
-                                }}
-                                onClick={() => {
-                                    (document.getElementById('my_modal_3') as HTMLDialogElement).showModal()
-                                    setSelectedBoat(b)
-                                }}
-                                icon={{
-                                    url: "https://w7.pngwing.com/pngs/553/999/png-transparent-boat-desktop-boat-wood-transport-watercraft.png",
-                                    scaledSize: new window.google.maps.Size(40, 40)
-                                }}
-                            />
+                                position={{ lat: b.location.latitude, lng: b.location.longitude }}
+                                mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                            >
+                                <button className='relative flex items-center justify-center' onClick={() => {
+                                (document.getElementById('my_modal_3') as HTMLDialogElement).showModal()
+                                setSelectedBoat(b)
+                            }}>
+                                    {renderEmergencyEffect() ? b.status !== "normal" : <></>}
+                                    <Image
+                                        className='rounded-full'
+                                        src="/boat.avif"
+                                        width={80}
+                                        height={80}
+                                        alt="Picture of the author"
+                                    />
+                                </button>
+                            </OverlayView>
                         )
                     })}
                 </GoogleMap>
@@ -183,3 +193,5 @@ screen">
 }
 
 export default React.memo(BoatTrackingMap)
+
+

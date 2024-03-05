@@ -169,12 +169,12 @@ function BoatTrackingMap() {
                                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
                             >
                                 <div className='relative flex items-center justify-center'>
-                                    {renderEmergencyEffect() ? b.status == "sos" : <></>}
+                                    {renderEmergencyEffect() ? b.status !== "normal" : <></>}
                                     <Image
                                         className='rounded-full'
                                         src="/boat.avif"
-                                        width={60}
-                                        height={60}
+                                        width={80}
+                                        height={80}
                                         alt="Picture of the author"
                                     />
                                 </div>

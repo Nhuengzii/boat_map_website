@@ -2,11 +2,13 @@
 
 import axios from "axios"
 
-export default function SosPage({ status, boatId, boatName }: { status: "normal" | "sos" | "crash", boatId: string, boatName: string }) {
+export default function SosPage({ status, boatId, boatName, closeSOSPage }: { status: "normal" | "sos" | "crash", boatId: string, boatName: string, closeSOSPage: () => void }) {
     async function resolveSos(boatId: string) {
         const url = "https://boat-protector-backend.onrender.com/boats/" + boatId + "/emergency/cancel"
         await axios.patch(url)
         alert("ทำการปิดสัญญานขอความช่วยเรียบร้อยแล้ว")
+        closeSOSPage()
+
     };
     const renderNormalStatus = () => {
         return (
