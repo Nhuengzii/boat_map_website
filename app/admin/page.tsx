@@ -47,16 +47,6 @@ function BoatTrackingMap() {
                 }
                 return true
             }))
-            setBoats([...boats, {
-                boatID: "1",
-                boatName: "Test",
-                boatType: "Test",
-                status: "sos",
-                location: {
-                    latitude: 13.851070,
-                    longitude: 100.577713
-                }
-            }])
         }
         const intv = setInterval(() => {
             getBoat()
