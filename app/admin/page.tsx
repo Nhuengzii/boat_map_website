@@ -12,8 +12,7 @@ const center = {
     lng: 100.577713
 };
 
-const apiKey = process.env.MAP_KEY as string;
-console.log(apiKey)
+const apiKey = process.env.NEXT_PUBLIC_MAP_KEY as string;
 const baseURL = "https://boat-protector-backend.onrender.com/";
 
 type Boat = {
